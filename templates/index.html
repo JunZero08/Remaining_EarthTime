@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지구 멸망 타이머</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .timer {
+            font-size: 2rem;
+            color: red;
+            margin: 20px 0;
+        }
+        .form-container {
+            margin: 20px 0;
+        }
+        input {
+            margin: 5px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: green;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+        .gif-container {
+            margin: 20px auto;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 지구 멸망 타이머 🌍</h1>
+        <p>현재 환경적 요인을 기반으로 남은 시간을 계산합니다.</p>
+
+        <div class="gif-container">
+            <img src="{{ url_for('static', filename='earth-2768.gif') }}" alt="지구 회전 GIF">
+        </div>
+
+        <div class="form-container">
+            <form method="POST">
+                <label>탄소 배출량 (MtCO₂):</label>
+                <input type="number" step="0.01" name="a" placeholder="예: 37000"><br>
+                <label>자연재해 발생 빈도:</label>
+                <input type="number" step="0.01" name="b" placeholder="예: 1.2"><br>
+                <label>산업화 및 도시화 비율:</label>
+                <input type="number" step="0.01" name="c" placeholder="예: 3.2"><br>
+                <label>사회적 무관심 비율:</label>
+                <input type="number" step="0.01" name="d" placeholder="예: 35"><br>
+                <label>환경 복원 활동 비율:</label>
+                <input type="number" step="0.01" name="e" placeholder="예: 2000"><br>
+                <button type="submit">남은 시간 계산</button>
+            </form>
+        </div>
+
+        {% if remaining_time is not none %}
+            <div class="timer">
+                {% if remaining_time|float < 0 %}
+                    지구 멸망까지 시간이 없습니다! 🌍💥
+                {% else %}
+                    지구 멸망까지 남은 시간: {{ remaining_time|float|round(2) }} 초
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
